@@ -1,7 +1,7 @@
 #include "sort.h"
 
 /**
- * quick_sort - sorts an array using quick sort 
+ * quick_sort - sorts an array using quick sort
  * @array: array pointer
  * @size: size of the array
  * Return: void
@@ -12,58 +12,57 @@ void quick_sort(int *array, size_t size)
 	if (size < 2 || array == NULL)
 		return;
 
-	qs(array, 0, (int)size - 1, size);
+	rs(array, 0, (int)size - 1, size);
 }
 
 
 /**
- * qs - recusion function of the quicksort algorithm
- * @arr: array
+ * rs - recusion function of the quick sort
+ * @arr: an array
  * @low: first index
  * @high: last index
  * @size: size of the array
  * Return: void
  */
 
-void qs(int *arr, int low, int high, size_t size)
+void rs(int *arr, int low, int high, size_t size)
 {
-	int p;
+	int k;
 
 	if (low >= high)
 		return;
 
-	p = partition(arr, low, high, size);
+	k = partition(arr, low, high, size);
 
-	if (p - low > 1)
-		qs(arr, low, p - 1, size);
-	if (high - p > 1)
-		qs(arr, p + 1, high, size);
+	if (k - low > 1)
+		rs(arr, low, k - 1, size);
+	if (high - k > 1)
+		rs(arr, k + 1, high, size);
 }
 
 
 /**
  * partition - lomuto partition implementation
- * @arr: array
- * @low: first index of the partition
- * @high: last index of the partition
+ * @arr: an array
+ * @low: first index
+ * @high: last index
  * @size: size of the array
  * Return: new index of the pivot
  */
 int partition(int *arr, int low, int high, size_t size)
 {
-	int pivot = arr[high], i = low - 1, j, tmp;
+	int pvt = arr[high], i = low - 1, t, temp;
 
-	for (j = low; j < high; j++)
+	for (t = low; t < high; t++)
 	{
-		if (arr[j] < pivot)
+		if (arr[t] < pvt)
 		{
 			++i;
-			if (j != i)
+			if (t != i)
 			{
-				/*swaping*/
-				tmp = arr[j];
-				arr[j] = arr[i];
-				arr[i] = tmp;
+				temp = arr[t];
+				arr[t] = arr[i];
+				arr[i] = temp;
 				print_array(arr, size);
 			}
 		}
@@ -72,9 +71,9 @@ int partition(int *arr, int low, int high, size_t size)
 	{
 		if (arr[i + 1] != arr[high])
 		{
-			tmp = arr[high];
+			temp = arr[high];
 			arr[high] = arr[i + 1];
-			arr[i + 1] = tmp;
+			arr[i + 1] = temp;
 			print_array(arr, size);
 		}
 		return (i + 1);
